@@ -13,21 +13,20 @@ export default class App extends ComponentImp {
     `;
     }
     mounted() {
-        const $popup = this.$target.querySelector('[data-component="popup"]');
         const $header = this.$target.querySelector('[data-component="header"]');
         const $page = this.$target.querySelector('[data-component="page"]');
         const $footer = this.$target.querySelector('[data-component="footer"]');
-        new Popup($popup);
         new Header($header);
         new Page($page);
         new Footer($footer);
     }
     setEvent() {
-        this.addEvent("click", "button", (e) => {
+        this.addEvent("click", ".button--header", (e) => {
             const target = e.target;
-            console.log(target.id);
-            const $popup = document.querySelector('[data-component="popup"]');
-            $popup === null || $popup === void 0 ? void 0 : $popup.classList.toggle("active");
+            const { id } = target;
+            const $popup = this.$target.querySelector('[data-component="popup"]');
+            new Popup($popup, { id });
+            $popup.classList.add("active");
         });
     }
 }

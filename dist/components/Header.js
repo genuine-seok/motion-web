@@ -23,9 +23,9 @@ export default class Header extends ComponentImp {
         const $videoBtn = this.$target.querySelector('[data-component="button--video"]');
         const $taskBtn = this.$target.querySelector('[data-component="button--task"]');
         const $noteBtn = this.$target.querySelector('[data-component="button--note"]');
-        new Button($imageBtn, { type: "Image" });
-        new Button($videoBtn, { type: "Video" });
-        new Button($taskBtn, { type: "Task" });
-        new Button($noteBtn, { type: "Note" });
+        new Button($imageBtn, { id: "Image" });
+        new Button($videoBtn, { id: "Video" });
+        new Button($taskBtn, { id: "Task" });
+        new Button($noteBtn, { id: "Note" });
     }
 }

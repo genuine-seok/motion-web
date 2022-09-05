@@ -237,7 +237,6 @@ button:hover {
   cursor: pointer;
 }
 
-/* section[data-component="popup"] { */
 .popup {
   position: fixed;
   top: 0;
@@ -247,7 +246,6 @@ button:hover {
   background-color: rgba(0, 0, 0, 0.3);
 
   opacity: 0;
-  /* TODO: classname toggle로 조작하기 */
   z-index: -1;
 }
 
@@ -264,14 +262,12 @@ button:hover {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -65%);
+  transform: translate(-50%, -60%);
   width: 20rem;
   border-radius: 0.2rem;
   padding: 1rem;
   background-color: #ffffff;
 
-  /* TEST COLOR */
-  /* background-color: magenta; */
   box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
   z-index: 100;
 }
@@ -287,15 +283,25 @@ button:hover {
   padding: 2rem 0.5rem;
 }
 
+div[data-component="popup--title"] {
+  width: 100%;
+}
+
+div[data-component="popup--input"] {
+  width: 100%;
+}
+
 .popup--button--container {
   display: flex;
   justify-content: flex-end;
 }
 
-input {
+.popup--input--field {
+  width: 100%;
   margin-top: 0.5rem;
   margin-bottom: 1rem;
   padding: 0.5rem;
+  box-sizing: border-box;
 }
 
 button {
