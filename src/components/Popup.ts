@@ -33,23 +33,19 @@ export default class Popup extends ComponentImp {
 
   template(): string {
     return `
-    <div class="popup--container">
-        <div class="popup--body">
-            <div class="popup--text--container">
-                <div data-component="popup--text">팝업 타이틀</div>
-            </div>
-            <div class="popup--input--container">
-                <div data-component="popup--title">
-                    <label for="title">제목</label>
-                    <input type="text" class="popup--input--field" id="title" />
-                </div>
-                <div data-component="popup--input"></div>
-            </div>
-            <div class="popup--button--container">
-                <button class="button__confirm">확인</button>
-                <button class="button__cancel">취소</button>
-            </div>
+    <div class="popup--text--container">
+        <div data-component="popup--text">팝업 타이틀</div>
+    </div>
+    <div class="popup--input--container">
+        <div data-component="popup--title">
+            <label for="title">제목</label>
+            <input type="text" class="popup--input--field" id="title" />
         </div>
+        <div data-component="popup--input"></div>
+    </div>
+    <div class="popup--button--container">
+        <button class="button__confirm">확인</button>
+        <button class="button__cancel">취소</button>
     </div>
         `;
   }
@@ -75,8 +71,8 @@ export default class Popup extends ComponentImp {
 
   setEvent(): void {
     this.addEvent("click", ".button__cancel", () => {
-      const $popup = this.$target;
-      $popup.classList.remove("active");
+      const $popupContainer = document.querySelector(".popup") as Element;
+      $popupContainer.classList.remove("active");
     });
   }
 }

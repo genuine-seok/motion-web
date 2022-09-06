@@ -247,6 +247,7 @@ button:hover {
 
   opacity: 0;
   z-index: -1;
+  transition: all 0.3s;
 }
 
 .popup--container {
@@ -269,7 +270,8 @@ button:hover {
   background-color: #ffffff;
 
   box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
-  z-index: 100;
+  transition: all 0.3s;
+  /* z-index: 100; */
 }
 
 .active .popup--container .popup--body {
@@ -311,7 +313,7 @@ button {
 .button__confirm {
   color: white;
   background-color: dodgerblue;
-  transition: all 0.5s;
+  transition: all 0.3s;
 }
 
 .button__confirm:hover {

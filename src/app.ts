@@ -7,16 +7,18 @@ import Popup from "./components/Popup.js";
 export default class App extends ComponentImp {
   template() {
     return `
-        <section class="popup" data-component="popup"></section>
+        <section class="popup" data-component="popup">
+          <div class="popup--container">
+            <div class="popup--body">
+            </div>
+          </div>
+        </section>
         <header data-component="header"></header>
         <article data-component="page"></article>
         <footer data-component="footer"></footer>
     `;
   }
   mounted() {
-    // const $popup = this.$target.querySelector(
-    //   '[data-component="popup"]'
-    // ) as Element;
     const $header = this.$target.querySelector(
       '[data-component="header"]'
     ) as Element;
@@ -27,7 +29,6 @@ export default class App extends ComponentImp {
       '[data-component="footer"]'
     ) as Element;
 
-    // new Popup($popup);
     new Header($header);
     new Page($page);
     new Footer($footer);
@@ -37,16 +38,10 @@ export default class App extends ComponentImp {
     this.addEvent("click", ".button--header", (e: Event) => {
       const target = e.target as Element;
       const { id } = target;
-      const $popup = this.$target.querySelector(
-        '[data-component="popup"]'
-      ) as Element;
-
-      //TODO: 팝업을 새로 만들지 말고, Popup에 id를 전달할 수 있는 메서드를 구현해서
-      // 클릭 이벤트 발생시 id를 전달하는 메서드를 호출해 Popup 내부에 전달한다.
-      // 해당 메서드는 Popup의 내부 state를 업데이트하고, 인스턴스 내부적으로만 리렌더링한다.
-      // popup--body 내부적으로만 리렌더링해야 transform에 대한 transition이 적용 가능함
+      const $popup = this.$target.querySelector(".popup--body") as Element;
+      const $popupContainer = this.$target.querySelector(".popup") as Element;
       new Popup($popup, { id });
-      $popup.classList.add("active");
+      $popupContainer.classList.add("active");
     });
   }
 }
