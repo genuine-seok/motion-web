@@ -4,61 +4,32 @@ import Footer from "./components/Footer.js";
 import Page from "./components/Page.js";
 import Popup, { ButtonId } from "./components/Popup.js";
 
-export type CardData = {
-  type: ButtonId;
-  title: string;
-  input: string;
-};
-
 export default class App extends ComponentImp {
-  $state: any;
-
-  public addNewCard(card: CardData) {
-    const { cardList } = this.$state;
-    const newCardList = [...cardList, card];
-    const newState = { ...this.$state, ...{ cardList: newCardList } };
-    this.setState(newState);
-  }
-
-  public checkAppState() {
-    console.log(this.$state);
-  }
-
-  setup() {
-    this.$state = {
-      cardList: [],
-    };
-  }
-
   template() {
     return `
-        <section class="popup" data-component="popup"></section>
         <header data-component="header"></header>
+        <section class="popup" data-component="popup"></section>
         <article data-component="page"></article>
         <footer data-component="footer"></footer>
     `;
   }
   mounted() {
-    const { checkAppState } = this;
-
+    const $page = this.$target.querySelector(
+      '[data-component="page"]'
+    ) as Element;
     const $popup = this.$target.querySelector(
       '[data-component="popup"]'
     ) as Element;
     const $header = this.$target.querySelector(
       '[data-component="header"]'
     ) as Element;
-    const $page = this.$target.querySelector(
-      '[data-component="page"]'
-    ) as Element;
     const $footer = this.$target.querySelector(
       '[data-component="footer"]'
     ) as Element;
 
-    const $Popup = new Popup($popup);
+    const $Page = new Page($page);
+    const $Popup = new Popup($popup, { $Page });
     new Header($header, { $Popup });
-    new Page($page, {
-      checkAppState: checkAppState.bind(this),
-    });
     new Footer($footer);
   }
 

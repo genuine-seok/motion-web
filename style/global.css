@@ -320,7 +320,7 @@ button {
   background-color: deepskyblue;
 }
 
-.card__container {
+.block__container {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -329,25 +329,25 @@ button {
   border-radius: 0.2rem;
 }
 
-.card__container:hover {
+.block__container:hover {
   cursor: pointer;
 }
 
-.card__container:active {
+.block__container:active {
   background-color: #f1f1ef;
   box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
   cursor: grab;
   opacity: 0.5;
 }
 
-.card__header {
+.block__header {
   display: flex;
   justify-content: space-between;
   font-weight: 500;
   height: 30px;
   width: 100%;
 }
-.card__body {
+.block__body {
   min-height: 30px;
   width: 100%;
 }

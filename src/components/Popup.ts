@@ -1,8 +1,4 @@
 import ComponentImp from "../core/Component.js";
-// import { CardData } from "../app.js";
-
-// const TITLE = 0;
-// const INPUT = 1;
 
 export type ButtonId = "Image" | "Video" | "Task" | "Note";
 type PopupInput = {
@@ -30,6 +26,9 @@ const buttonMap: Record<ButtonId, PopupInput> = {
 };
 
 export default class Popup extends ComponentImp {
+  //   private TITLE = 0;
+  //   private INPUT = 1;
+
   setup(): void {
     this.$state = {
       type: "Image",
@@ -129,17 +128,14 @@ export default class Popup extends ComponentImp {
   //       };
   //       addNewCard(card);
   //       checkAppState();
-  //       // 팝업 닫기 이벤트 추가
   //     });
 
   setEvent(): void {
     this.addEvent("click", ".button__confirm", () => {
-      console.log("confirmed");
       this.fadeOut();
     });
 
     this.addEvent("click", ".button__cancel", () => {
-      console.log("canceled");
       this.fadeOut();
     });
   }
