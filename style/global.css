@@ -193,7 +193,7 @@ div[data-component="header--title__container"] {
   height: 40%;
 }
 
-div[data-component="button__container"] {
+.button__container {
   display: flex;
   background-color: #ffffff;
   margin: 10px 10px;
@@ -237,7 +237,7 @@ button:hover {
   cursor: pointer;
 }
 
-.popup {
+.popup--background {
   position: fixed;
   top: 0;
   left: 0;

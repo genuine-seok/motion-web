@@ -11,7 +11,7 @@ export default class Header extends ComponentImp {
             </div>
             <h1 data-component="header--title">MOTION</h1>
         </div>
-        <div data-component="button__container">
+        <div class="button__container">
             <div data-component="button--image">Image</div>
             <div data-component="button--video">Video</div>
             <div data-component="button--task">Task</div>
@@ -37,5 +37,15 @@ export default class Header extends ComponentImp {
     new Button($videoBtn, { id: "Video" });
     new Button($taskBtn, { id: "Task" });
     new Button($noteBtn, { id: "Note" });
+  }
+
+  setEvent(): void {
+    const { $Popup } = this.$props;
+    this.addEvent("click", ".button__container", (e: Event) => {
+      const target = e.target as Element;
+      const { id } = target;
+      $Popup.setPopupType(id);
+      $Popup.fadeIn();
+    });
   }
 }

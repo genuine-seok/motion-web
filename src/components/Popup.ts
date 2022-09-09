@@ -1,8 +1,8 @@
 import ComponentImp from "../core/Component.js";
-import { CardData } from "../app.js";
+// import { CardData } from "../app.js";
 
-const TITLE = 0;
-const INPUT = 1;
+// const TITLE = 0;
+// const INPUT = 1;
 
 export type ButtonId = "Image" | "Video" | "Task" | "Note";
 type PopupInput = {
@@ -32,31 +32,40 @@ const buttonMap: Record<ButtonId, PopupInput> = {
 export default class Popup extends ComponentImp {
   setup(): void {
     this.$state = {
-      title: "",
-      input: "",
+      type: "Image",
+      inputs: {
+        title: "",
+        input: "",
+      },
     };
   }
 
   mounted(): void {
-    const { id } = this.$props;
-    this.setPopupElements(id);
+    const { type } = this.$state;
+    this.setPopupElements(type);
   }
 
   template(): string {
     return `
-    <div class="popup--text--container">
-        <div data-component="popup--text">팝업 타이틀</div>
-    </div>
-    <div class="popup--input--container">
-        <div data-component="popup--title">
-            <label for="title">제목</label>
-            <input name="title" type="text" class="popup--input--field" id="title" />
+    <div class="popup--background">
+        <div class="popup--container">
+            <div class="popup--body">
+                <div class="popup--text--container">
+                    <div data-component="popup--text">팝업 타이틀</div>
+                </div>
+                <div class="popup--input--container">
+                    <div data-component="popup--title">
+                        <label for="title">제목</label>
+                        <input name="title" type="text" class="popup--input--field" id="title" />
+                    </div>
+                    <div data-component="popup--input"></div>
+                </div>
+                <div class="popup--button--container">
+                    <button class="button__confirm">확인</button>
+                    <button class="button__cancel">취소</button>
+                </div>
+            </div>
         </div>
-        <div data-component="popup--input"></div>
-    </div>
-    <div class="popup--button--container">
-        <button class="button__confirm">확인</button>
-        <button class="button__cancel">취소</button>
     </div>
         `;
   }
@@ -67,6 +76,18 @@ export default class Popup extends ComponentImp {
   getNewInput(id: ButtonId) {
     return `<label for="${id}">${buttonMap[id].input}</label>
       <input name="input" type="text" class="popup--input--field" id="${id}" />`;
+  }
+
+  setPopupType(type: ButtonId) {
+    const newState = {
+      type,
+      inputs: {
+        title: "",
+        input: "",
+      },
+    };
+    this.setState(newState);
+    this.setPopupElements(type);
   }
 
   setPopupElements(id: ButtonId) {
@@ -80,26 +101,46 @@ export default class Popup extends ComponentImp {
     $input.innerHTML = this.getNewInput(id);
   }
 
-  setEvent(): void {
-    const { addNewCard, checkAppState } = this.$props;
+  fadeIn() {
+    const $popupBackground = this.$target.querySelector(
+      ".popup--background"
+    ) as Element;
+    $popupBackground.classList.add("active");
+  }
 
+  fadeOut() {
+    const $popupBackground = this.$target.querySelector(
+      ".popup--background"
+    ) as Element;
+    $popupBackground.classList.remove("active");
+  }
+
+  //   setEvent(): void {
+  //     const { addNewCard, checkAppState } = this.$props;
+
+  //     this.addEvent("click", ".button__confirm", () => {
+  //       const $inputs = this.$target.querySelectorAll("input");
+  //       const $title = $inputs[TITLE] as HTMLInputElement;
+  //       const $input = $inputs[INPUT] as HTMLInputElement;
+  //       const card: CardData = {
+  //         type: $input.id as ButtonId,
+  //         title: $title.value,
+  //         input: $input.value,
+  //       };
+  //       addNewCard(card);
+  //       checkAppState();
+  //       // 팝업 닫기 이벤트 추가
+  //     });
+
+  setEvent(): void {
     this.addEvent("click", ".button__confirm", () => {
-      const $inputs = this.$target.querySelectorAll("input");
-      const $title = $inputs[TITLE] as HTMLInputElement;
-      const $input = $inputs[INPUT] as HTMLInputElement;
-      const card: CardData = {
-        type: $input.id as ButtonId,
-        title: $title.value,
-        input: $input.value,
-      };
-      addNewCard(card);
-      checkAppState();
-      // 팝업 닫기 이벤트 추가
+      console.log("confirmed");
+      this.fadeOut();
     });
 
     this.addEvent("click", ".button__cancel", () => {
-      const $popupContainer = document.querySelector(".popup") as Element;
-      $popupContainer.classList.remove("active");
+      console.log("canceled");
+      this.fadeOut();
     });
   }
 }
