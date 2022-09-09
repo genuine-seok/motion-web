@@ -1,4 +1,5 @@
 import ComponentImp from "../core/Component.js";
+import { BlockData } from "./Block.js";
 
 export type ButtonId = "Image" | "Video" | "Task" | "Note";
 type PopupInput = {
@@ -26,8 +27,8 @@ const buttonMap: Record<ButtonId, PopupInput> = {
 };
 
 export default class Popup extends ComponentImp {
-  //   private TITLE = 0;
-  //   private INPUT = 1;
+  private TITLE = 0;
+  private INPUT = 1;
 
   setup(): void {
     this.$state = {
@@ -114,24 +115,21 @@ export default class Popup extends ComponentImp {
     $popupBackground.classList.remove("active");
   }
 
-  //   setEvent(): void {
-  //     const { addNewCard, checkAppState } = this.$props;
-
-  //     this.addEvent("click", ".button__confirm", () => {
-  //       const $inputs = this.$target.querySelectorAll("input");
-  //       const $title = $inputs[TITLE] as HTMLInputElement;
-  //       const $input = $inputs[INPUT] as HTMLInputElement;
-  //       const card: CardData = {
-  //         type: $input.id as ButtonId,
-  //         title: $title.value,
-  //         input: $input.value,
-  //       };
-  //       addNewCard(card);
-  //       checkAppState();
-  //     });
-
   setEvent(): void {
+    const { $Page } = this.$props;
+
     this.addEvent("click", ".button__confirm", () => {
+      const $inputs = this.$target.querySelectorAll("input");
+      const $title = $inputs[this.TITLE] as HTMLInputElement;
+      const $input = $inputs[this.INPUT] as HTMLInputElement;
+      const newBlock: BlockData = {
+        type: $input.id as ButtonId,
+        title: $title.value,
+        input: $input.value,
+      };
+      $title.value = "";
+      $input.value = "";
+      $Page.addBlock(newBlock);
       this.fadeOut();
     });
 

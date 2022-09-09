@@ -9,31 +9,42 @@ export default class Page extends ComponentImp {
   }
 
   template(): string {
-    return `<section data-component="page__container">
-              <article class="" data-component="block1"></article>
-              <article class="" data-component="block2"></article>
-            </section>`;
+    return `<section data-component="page__container"></section>`;
   }
 
   mounted(): void {
-    const $block = this.$target.querySelector(
-      '[data-component="block1"]'
-    ) as Element;
-    const $block2 = this.$target.querySelector(
-      '[data-component="block2"]'
-    ) as Element;
-
-    new Block($block);
-    new Block($block2);
+    this.paintBlocks();
   }
 
   public addBlock(block: BlockData) {
     const { blockList } = this.$state;
-    const newBl = [...blockList, block];
-    const newState = { ...this.$state, ...{ blockList: newBl } };
+    const newBlockList = [...blockList, block];
+    const newState = { ...this.$state, ...{ blockList: newBlockList } };
     this.setState(newState);
+    this.paintBlocks();
   }
 
+  // blockList를 기준으로 Block들을 렌더링
+  private paintBlocks() {
+    const { blockList } = this.$state;
+    const $pageContainer = this.$target.querySelector(
+      '[data-component="page__container"]'
+    ) as Element;
+
+    if (blockList.length) {
+      $pageContainer.innerHTML = ``;
+      blockList.map((block: BlockData, idx: number) => {
+        const $newBlock = document.createElement("section");
+        $newBlock.id = idx.toString();
+        $newBlock.classList.add("block__container");
+        $pageContainer.appendChild($newBlock);
+
+        new Block($newBlock, { block });
+      });
+    }
+  }
+
+  // TEST CODE
   public getBlockList() {
     console.log(this.$state.blockList);
   }

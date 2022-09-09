@@ -10,14 +10,23 @@ export type BlockData = {
 export default class Block extends ComponentImp {
   template(): string {
     return `
-        <section class="block__container">
-            <div class="block__header">
-              <div class="block__header--title">제목</div>
-              <span class="material-symbols-outlined">close</span>
-            </div>
-            <div class="block__body"> Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum </div>
-        </section>
+          <div class="block__header">
+            <div class="block__header--title">제목</div>
+            <span class="material-symbols-outlined">close</span>
+          </div>
+          <div class="block__body"> Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum </div>
       `;
+  }
+
+  mounted(): void {
+    const { block } = this.$props;
+
+    const $title = this.$target.querySelector(
+      ".block__header--title"
+    ) as Element;
+    const $body = this.$target.querySelector(".block__body") as Element;
+    $title.innerHTML = block.title;
+    $body.innerHTML = block.input;
   }
 
   //TODO : debounce 적용

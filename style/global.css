@@ -208,8 +208,9 @@ div[data-component="header--title__container"] {
 
 section[data-component="page__container"] {
   display: flex;
+  box-sizing: border-box;
   flex-direction: column;
-  padding: 1rem;
+  padding: 2rem 4rem;
   align-items: center;
   height: 100%;
   width: 100%;
@@ -323,8 +324,9 @@ button {
 .block__container {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 60%;
   padding: 1rem;
+  margin-bottom: 0.5rem;
   /* border: 1px solid #dfe2e6; */
   border-radius: 0.2rem;
 }

@@ -2,7 +2,7 @@ import ComponentImp from "./core/Component.js";
 import Header from "./components/Header.js";
 import Footer from "./components/Footer.js";
 import Page from "./components/Page.js";
-import Popup, { ButtonId } from "./components/Popup.js";
+import Popup from "./components/Popup.js";
 
 export default class App extends ComponentImp {
   template() {
