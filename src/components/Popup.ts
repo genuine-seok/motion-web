@@ -1,6 +1,10 @@
 import ComponentImp from "../core/Component.js";
+import { CardData } from "../app.js";
 
-type ButtonId = "Image" | "Video" | "Task" | "Note";
+const TITLE = 0;
+const INPUT = 1;
+
+export type ButtonId = "Image" | "Video" | "Task" | "Note";
 type PopupInput = {
   title: "이미지" | "영상" | "할 일 목록" | "노트";
   input: "URL" | "내용";
@@ -26,9 +30,16 @@ const buttonMap: Record<ButtonId, PopupInput> = {
 };
 
 export default class Popup extends ComponentImp {
+  setup(): void {
+    this.$state = {
+      title: "",
+      input: "",
+    };
+  }
+
   mounted(): void {
     const { id } = this.$props;
-    this.setPopupElements(id); // id를 기준으로 popup elements를 동적으로 생성
+    this.setPopupElements(id);
   }
 
   template(): string {
@@ -39,7 +50,7 @@ export default class Popup extends ComponentImp {
     <div class="popup--input--container">
         <div data-component="popup--title">
             <label for="title">제목</label>
-            <input type="text" class="popup--input--field" id="title" />
+            <input name="title" type="text" class="popup--input--field" id="title" />
         </div>
         <div data-component="popup--input"></div>
     </div>
@@ -55,7 +66,7 @@ export default class Popup extends ComponentImp {
   }
   getNewInput(id: ButtonId) {
     return `<label for="${id}">${buttonMap[id].input}</label>
-      <input type="text" class="popup--input--field" id="${id}" />`;
+      <input name="input" type="text" class="popup--input--field" id="${id}" />`;
   }
 
   setPopupElements(id: ButtonId) {
@@ -70,14 +81,25 @@ export default class Popup extends ComponentImp {
   }
 
   setEvent(): void {
+    const { addNewCard, checkAppState } = this.$props;
+
+    this.addEvent("click", ".button__confirm", () => {
+      const $inputs = this.$target.querySelectorAll("input");
+      const $title = $inputs[TITLE] as HTMLInputElement;
+      const $input = $inputs[INPUT] as HTMLInputElement;
+      const card: CardData = {
+        type: $input.id as ButtonId,
+        title: $title.value,
+        input: $input.value,
+      };
+      addNewCard(card);
+      checkAppState();
+      // 팝업 닫기 이벤트 추가
+    });
+
     this.addEvent("click", ".button__cancel", () => {
       const $popupContainer = document.querySelector(".popup") as Element;
       $popupContainer.classList.remove("active");
     });
   }
 }
-
-/**
- * 각 입력 필드의 onChange 이벤트에 대한 상태를 관리해,
- * 확인 버튼 클릭시, page로 전달해야 한다.(How?)
- */
