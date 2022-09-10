@@ -65,7 +65,6 @@ export default class Page extends ComponentImp {
       const $icon = e.target as Element;
       const target = $icon.closest(".block__container") as Element;
       const id = parseInt(target.id);
-      console.log(id);
       this.removeBlock(id);
     });
   }
