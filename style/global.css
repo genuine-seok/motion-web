@@ -172,6 +172,7 @@ header[data-component="header"] {
 article[data-component="page"] {
   width: 100%;
   background-color: #ffffff;
+  overflow: auto;
 }
 
 footer[data-component="footer"] {
@@ -322,6 +323,7 @@ button {
 }
 
 .block__container {
+  background-color: white;
   display: flex;
   flex-direction: column;
   width: 60%;
@@ -329,10 +331,12 @@ button {
   margin-bottom: 0.5rem;
   /* border: 1px solid #dfe2e6; */
   border-radius: 0.2rem;
+  z-index: 10;
 }
 
 .block__container:hover {
   cursor: pointer;
+  z-index: 8;
 }
 
 .block__container:active {
@@ -344,18 +348,42 @@ button {
 
 .block__header {
   display: flex;
+  position: relative;
   justify-content: space-between;
   font-weight: 500;
-  height: 30px;
+  height: 1.5rem;
+  width: 100%;
+  padding-bottom: 1rem;
+}
+
+.block__header__container {
+  /* background-color: white; */
+  position: absolute;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.block__header__title {
   width: 100%;
 }
+
+.block__header__icon {
+  display: flex;
+  position: absolute;
+  justify-content: flex-end;
+  width: 100%;
+}
+
 .block__body {
   min-height: 30px;
   width: 100%;
 }
 
 .material-symbols-outlined {
-  z-index: -1;
+  position: absolute;
+  margin-left: auto;
 }
 
 .material-symbols-outlined:hover {

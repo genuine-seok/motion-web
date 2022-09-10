@@ -56,7 +56,7 @@ export default class Popup extends ComponentImp {
                 <div class="popup--input--container">
                     <div data-component="popup--title">
                         <label for="title">제목</label>
-                        <input name="title" type="text" class="popup--input--field" id="title" />
+                        <input name="title" type="text" class="popup--input--field" id="title" required/>
                     </div>
                     <div data-component="popup--input"></div>
                 </div>
@@ -75,7 +75,7 @@ export default class Popup extends ComponentImp {
   }
   getNewInput(id: ButtonId) {
     return `<label for="${id}">${buttonMap[id].input}</label>
-      <input name="input" type="text" class="popup--input--field" id="${id}" />`;
+      <input name="input" type="text" class="popup--input--field" id="${id}" required/>`;
   }
 
   setPopupType(type: ButtonId) {
@@ -122,6 +122,12 @@ export default class Popup extends ComponentImp {
       const $inputs = this.$target.querySelectorAll("input");
       const $title = $inputs[this.TITLE] as HTMLInputElement;
       const $input = $inputs[this.INPUT] as HTMLInputElement;
+
+      if ($title.value === "" || $input.value === "") {
+        this.fadeOut();
+        return;
+      }
+
       const newBlock: BlockData = {
         type: $input.id as ButtonId,
         title: $title.value,

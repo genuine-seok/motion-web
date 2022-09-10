@@ -24,7 +24,6 @@ export default class Page extends ComponentImp {
     this.paintBlocks();
   }
 
-  // blockList를 기준으로 Block들을 렌더링
   private paintBlocks() {
     const { blockList } = this.$state;
     const $pageContainer = this.$target.querySelector(
@@ -47,5 +46,27 @@ export default class Page extends ComponentImp {
   // TEST CODE
   public getBlockList() {
     console.log(this.$state.blockList);
+  }
+
+  public removeBlock(id: number) {
+    const { blockList } = this.$state;
+    const newBlockList = [...blockList];
+    newBlockList.splice(id, 1);
+    const newState = {
+      blockList: newBlockList,
+    };
+    this.setState(newState);
+    this.render();
+  }
+
+  //TODO : debounce 적용
+  setEvent(): void {
+    this.addEvent("click", ".material-symbols-outlined", (e: Event) => {
+      const $icon = e.target as Element;
+      const target = $icon.closest(".block__container") as Element;
+      const id = parseInt(target.id);
+      console.log(id);
+      this.removeBlock(id);
+    });
   }
 }
