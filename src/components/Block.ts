@@ -40,7 +40,12 @@ export default class Block extends ComponentImp {
       case "Image":
         return `<div class="block__body--image"><img src="${input}"></div>`;
       case "Video":
-        return `<div class="block__body--video"><iframe title="video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" frameborder="0" allowfullscreen src="${input}?autoplay=1&mute=1"></iframe></div>`;
+        console.log("received input value is : ", input);
+        const embeddedURL = this.convertToEmbeddedURL(input);
+        return `<div class="block__body--video">
+                  <iframe class="block__body--video__iframe" src="${embeddedURL}">
+                  </iframe>
+                </div>`;
       case "Task":
         return `<div class="block__body--task"><input type="checkbox" id="${input}" name="${input}" />${input}<label for="${input}"></label></div>`;
       case "Note":
@@ -48,5 +53,18 @@ export default class Block extends ComponentImp {
       default:
         return `<div class="block__body--Note">${input}</div>`;
     }
+  }
+
+  private convertToEmbeddedURL(url: string): string {
+    const regExp =
+      /^(?:https?:\/\/)?(?:www\.)?(?:(?:youtube.com\/(?:(?:watch\?v=)|(?:embed\/))([a-zA-Z0-9-]{11}))|(?:youtu.be\/([a-zA-Z0-9-_]{11})))/m;
+    const match = url.match(regExp);
+    console.log("match", match);
+    const videoId = match ? match[1] || match[2] : undefined;
+    console.log("videoId", videoId);
+    if (videoId) {
+      return `https://youtube.com/embed/${videoId}`;
+    }
+    return url;
   }
 }
