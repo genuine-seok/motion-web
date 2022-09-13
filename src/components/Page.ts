@@ -32,15 +32,20 @@ export default class Page extends ComponentImp {
 
     if (blockList.length) {
       $pageContainer.innerHTML = ``;
-      blockList.map((block: BlockData, idx: number) => {
-        const $newBlock = document.createElement("section");
-        $newBlock.id = idx.toString();
-        $newBlock.classList.add("block__container");
+      blockList.forEach((block: BlockData, id: number) => {
+        const $newBlock = this.makeBlock(block, id);
         $pageContainer.appendChild($newBlock);
-
-        new Block($newBlock, { block });
       });
     }
+  }
+
+  private makeBlock(block: BlockData, id: number) {
+    const $newBlock = document.createElement("section");
+    $newBlock.id = id.toString();
+    $newBlock.classList.add("block__container");
+    $newBlock.draggable = true;
+    new Block($newBlock, { block });
+    return $newBlock;
   }
 
   // TEST CODE
@@ -66,6 +71,10 @@ export default class Page extends ComponentImp {
       const target = $icon.closest(".block__container") as Element;
       const id = parseInt(target.id);
       this.removeBlock(id);
+    });
+
+    this.addEvent("dragstart", ".block__container", (e: DragEvent) => {
+      console.log("dragging :", e);
     });
   }
 }
