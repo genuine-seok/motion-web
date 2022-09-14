@@ -10,15 +10,14 @@ export interface Component {
 
 export default abstract class ComponentImp implements Component {
   constructor(
-    protected $target: Element,
-    protected $props?: any,
+    readonly $target: Element,
+    readonly $props?: any,
     protected $state?: any
   ) {
     this.setup();
     this.render();
     this.setEvent();
   }
-
   setup() {}
   template() {
     return ``;
