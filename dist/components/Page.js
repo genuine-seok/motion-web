@@ -1,4 +1,5 @@
 import ComponentImp from "../core/Component.js";
+import { getDefaultData } from "../utils/getData.js";
 import Block from "./Block.js";
 export default class Page extends ComponentImp {
     constructor() {
@@ -6,9 +7,8 @@ export default class Page extends ComponentImp {
         this.blockCompSet = new Set();
     }
     setup() {
-        this.$state = {
-            blockList: [],
-        };
+        const dataset = getDefaultData();
+        this.$state = Object.assign({}, dataset);
         this.blockCompSet = new Set();
     }
     template() {

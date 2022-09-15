@@ -129,10 +129,6 @@ html {
   min-height: 100vh;
 }
 
-body {
-  height: 100vh;
-}
-
 main {
   display: flex;
   flex-direction: column;
@@ -329,7 +325,7 @@ button {
   width: 60%;
   padding: 1rem;
   margin-bottom: 0.5rem;
-  /* border: 1px solid #dfe2e6; */
+
   border-radius: 0.2rem;
   z-index: 10;
 }
@@ -377,6 +373,7 @@ button {
 }
 
 .block__body {
+  line-height: 1.7rem;
   min-height: 30px;
   width: 100%;
 }

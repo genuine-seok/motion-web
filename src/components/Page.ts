@@ -1,4 +1,5 @@
 import ComponentImp from "../core/Component.js";
+import { getDefaultData } from "../utils/getData.js";
 import Block, { BlockData, DragState } from "./Block.js";
 
 export default class Page extends ComponentImp {
@@ -7,8 +8,9 @@ export default class Page extends ComponentImp {
   private dragTarget?: Block;
 
   setup() {
+    const dataset = getDefaultData();
     this.$state = {
-      blockList: [],
+      ...dataset,
     };
     this.blockCompSet = new Set<Block>();
   }
