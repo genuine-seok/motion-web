@@ -1,3 +1,12 @@
+:root {
+  --background-color: #ffffff;
+  --border-color: #dfe2e6;
+  --primary-button-enabled-color: dodgerblue;
+  --primary-button-hover-color: deepskyblue;
+  --secondary-button-enabled-color: #ffffff;
+  --secondary-button-hover-color: #f1f1ef;
+}
+
 html,
 body,
 div,
@@ -139,7 +148,7 @@ main {
 header {
   height: 160px;
   width: 100%;
-  border-bottom: 1px solid #dfe2e6;
+  border-bottom: 1px solid var(--border-color);
 }
 
 nav {
@@ -162,12 +171,12 @@ h3 {
 
 header[data-component="header"] {
   width: 100%;
-  background-color: #ffffff;
+  background-color: var(--background-color);
 }
 
 article[data-component="page"] {
   width: 100%;
-  background-color: #ffffff;
+  background-color: var(--background-color);
   overflow: auto;
 }
 
@@ -176,8 +185,8 @@ footer[data-component="footer"] {
   justify-content: center;
   align-items: center;
   height: 80px;
-  background-color: #ffffff;
-  border-top: 1px solid #dfe2e6;
+  background-color: var(--background-color);
+  border-top: 1px solid var(--border-color);
 
   font-size: 0.9rem;
   font-weight: 300;
@@ -192,7 +201,7 @@ div[data-component="header--title__container"] {
 
 .button__container {
   display: flex;
-  background-color: #ffffff;
+  background-color: var(--background-color);
   margin: 10px 10px;
 }
 
@@ -215,7 +224,6 @@ section[data-component="page__container"] {
 
 footer {
   height: 10%;
-  background-color: aqua;
   margin-top: auto;
 }
 
@@ -225,13 +233,13 @@ button {
   font-size: 1rem;
   margin: 0 0.2rem;
 
-  background-color: #ffffff;
-  border: 0.5px solid #ffffff;
+  background-color: var(--secondary-button-enabled-color);
+  border: 0.5px solid var(--background-color);
   border-radius: 0.2rem;
 }
 
 button:hover {
-  background-color: #f1f1ef;
+  background-color: var(--secondary-button-hover-color);
   cursor: pointer;
 }
 
@@ -269,7 +277,6 @@ button:hover {
 
   box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
   transition: all 0.3s;
-  /* z-index: 100; */
 }
 
 .active .popup--container .popup--body {
@@ -309,17 +316,17 @@ button {
 }
 
 .button__confirm {
-  color: white;
-  background-color: dodgerblue;
+  color: var(--background-color);
+  background-color: var(--primary-button-enabled-color);
   transition: all 0.3s;
 }
 
 .button__confirm:hover {
-  background-color: deepskyblue;
+  background-color: var(--primary-button-hover-color);
 }
 
 .block__container {
-  background-color: white;
+  background-color: var(--background-color);
   display: flex;
   flex-direction: column;
   width: 60%;
@@ -335,13 +342,6 @@ button {
   z-index: 8;
 }
 
-/* .block__container:active {
-  background-color: #f1f1ef;
-  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
-  cursor: grab;
-  opacity: 0.5;
-} */
-
 .block__header {
   display: flex;
   position: relative;
@@ -353,7 +353,6 @@ button {
 }
 
 .block__header__container {
-  /* background-color: white; */
   position: absolute;
   display: flex;
   width: 100%;
@@ -397,7 +396,7 @@ iframe {
 
 .material-symbols-outlined:hover {
   border-radius: 0.2rem;
-  background-color: #f1f1ef;
+  background-color: var(--secondary-button-hover-color);
 }
 
 .active {
@@ -429,5 +428,5 @@ img {
 }
 
 .drop-area {
-  border: 2px solid deepskyblue;
+  border: 2px solid var(--primary-button-hover-color);
 }
